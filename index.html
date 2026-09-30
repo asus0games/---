@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Александр — Электромонтаж Волгоград</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --dark: #1a2a4a;
+  --dark-light: #243b66;
+  --white: #ffffff;
+  --accent: #f5a623;
+  --accent-dark: #d68f10;
+  --gray-bg: #f4f6f9;
+  --gray-text: #555;
+  --border: #e0e4ea;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: #222;
+  line-height: 1.6;
+  background: var(--white);
+}
+
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* ===== HEADER ===== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--dark);
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,.25);
+}
+.nav-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.logo {
+  font-size: 1.15rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.logo span { color: var(--accent); }
+nav ul {
+  display: flex;
+  gap: 1.5rem;
+}
+nav a {
+  color: #cdd5e6;
+  font-size: .95rem;
+  transition: color .2s;
+}
+nav a:hover { color: var(--accent); }
+.header-phone {
+  background: var(--accent);
+  color: var(--dark);
+  font-weight: 700;
+  padding: .55rem 1.25rem;
+  border-radius: 8px;
+  font-size: .95rem;
+  white-space: nowrap;
+  transition: background .2s;
+}
+.header-phone:hover { background: var(--accent-dark); }
+.burger { display: none; background: none; border: none; color: #fff; font-size: 1.6rem; cursor: pointer; }
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  gap: .5rem;
+  padding: .75rem 1.25rem 1.25rem;
+}
+.mobile-menu a {
+  color: #cdd5e6;
+  padding: .5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.mobile-menu .header-phone { text-align: center; margin-top: .5rem; }
+
+/* ===== HERO ===== */
+.hero {
+  background: linear-gradient(135deg, #1a2a4a 0%, #2a3f6e 60%, #1a2a4a 100%);
+  color: var(--white);
+  text-align: center;
+  padding: 5rem 1.25rem 4.5rem;
+}
+.hero h1 {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  max-width: 800px;
+  margin: 0 auto 1.25rem;
+  line-height: 1.25;
+}
+.hero p {
+  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  color: #c8d2ea;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-block;
+  padding: .85rem 2rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all .2s;
+}
+.btn-accent {
+  background: var(--accent);
+  color: var(--dark);
+}
+.btn-accent:hover { background: var(--accent-dark); transform: translateY(-2px); }
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border-color: rgba(255,255,255,.5);
+}
+.btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,.1); }
+
+/* ===== SECTIONS ===== */
+section { padding: 4rem 1.25rem; }
+.section-title {
+  text-align: center;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  margin-bottom: .5rem;
+  color: var(--dark);
+}
+.section-subtitle {
+  text-align: center;
+  color: var(--gray-text);
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+}
+.container { max-width: 1100px; margin: 0 auto; }
+
+/* ===== SERVICES ===== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.service-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: transform .25s, box-shadow .25s;
+  opacity: 0;
+  transform: translateY(30px);
+}
+.service-card.visible { opacity: 1; transform: translateY(0); }
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(26,42,74,.12);
+}
+.service-icon { font-size: 2.8rem; margin-bottom: 1rem; display: block; }
+.service-card h3 { font-size: 1.15rem; margin-bottom: .5rem; color: var(--dark); }
+.service-card p { font-size: .9rem; color: var(--gray-text); }
+
+/* ===== PRICES ===== */
+#prices { background: var(--gray-bg); }
+.prices-table {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--white);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,.06);
+}
+.prices-table table { width: 100%; border-collapse: collapse; }
+.prices-table th, .prices-table td {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.prices-table th {
+  background: var(--dark);
+  color: var(--white);
+  font-size: .95rem;
+}
+.prices-table td:last-child {
+  text-align: right;
+  font-weight: 700;
+  color: var(--dark);
+  white-space: nowrap;
+}
+.prices-table tr:last-child td { border-bottom: none; }
+.prices-table tr:hover td { background: #fafbfd; }
+.prices-note {
+  text-align: center;
+  margin-top: 1.25rem;
+  color: var(--gray-text);
+  font-size: .9rem;
+  font-style: italic;
+}
+
+/* ===== WHY ME ===== */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.why-card {
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+.why-icon { font-size: 2.5rem; margin-bottom: .75rem; display: block; }
+.why-card h3 { font-size: 1.05rem; margin-bottom: .35rem; color: var(--dark); }
+.why-card p { font-size: .85rem; color: var(--gray-text); }
+
+/* ===== REVIEWS ===== */
+#reviews { background: var(--gray-bg); }
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.review-card {
+  background: var(--white);
+  border-radius: 14px;
+  padding: 1.75rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,.05);
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .5s, transform .5s;
+}
+.review-card.visible { opacity: 1; transform: translateY(0); }
+.review-stars { color: var(--accent); font-size: 1.1rem; margin-bottom: .5rem; letter-spacing: 2px; }
+.review-card p { font-size: .92rem; color: #333; margin-bottom: 1rem; }
+.review-author { font-weight: 700; font-size: .95rem; color: var(--dark); }
+
+/* ===== CONTACTS / FOOTER ===== */
+footer {
+  background: var(--dark);
+  color: var(--white);
+  padding: 3rem 1.25rem 2rem;
+}
+.footer-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+.footer-info h3 { font-size: 1.3rem; margin-bottom: 1.25rem; }
+.footer-info ul li {
+  margin-bottom: .75rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .95rem;
+  color: #cdd5e6;
+}
+.footer-info a { color: #cdd5e6; transition: color .2s; }
+.footer-info a:hover { color: var(--accent); }
+.footer-info .icon { font-size: 1.2rem; }
+.social-row {
+  display: flex;
+  gap: .75rem;
+  margin-top: 1.5rem;
+}
+.social-row a {
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  background: rgba(255,255,255,.1);
+  transition: background .2s;
+}
+.social-row a:hover { background: var(--accent); }
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+}
+.contact-form h3 { font-size: 1.3rem; margin-bottom: .5rem; }
+.contact-form input, .contact-form textarea {
+  width: 100%;
+  padding: .8rem 1rem;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 10px;
+  background: rgba(255,255,255,.08);
+  color: var(--white);
+  font-family: inherit;
+  font-size: .95rem;
+}
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: #8896b5; }
+.contact-form input:focus, .contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255,255,255,.12);
+}
+.contact-form button {
+  padding: .85rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--dark);
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background .2s;
+}
+.contact-form button:hover { background: var(--accent-dark); }
+.form-success {
+  display: none;
+  background: rgba(245,166,35,.15);
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  padding: 1rem;
+  text-align: center;
+  color: var(--accent);
+  font-weight: 600;
+}
+.form-success.show { display: block; }
+.footer-bottom {
+  max-width: 1100px;
+  margin: 2rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,.1);
+  text-align: center;
+  font-size: .85rem;
+  color: #8896b5;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .services-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid { grid-template-columns: 1fr; max-width: 500px; margin: 0 auto; }
+}
+@media (max-width: 768px) {
+  nav, .header-phone { display: none; }
+  .burger { display: block; }
+  .mobile-menu.open { display: flex; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 560px) {
+  .services-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  .why-grid { grid-template-columns: 1fr; }
+  .hero { padding: 3.5rem 1.25rem 3rem; }
+  section { padding: 3rem 1.25rem; }
+  .hero-buttons { flex-direction: column; align-items: stretch; }
+  .btn { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo">Александр — <span>Электромонтаж</span> Волгоград</div>
+    <nav>
+      <ul>
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#prices">Цены</a></li>
+        <li><a href="#reviews">Отзывы</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+      </ul>
+    </nav>
+    <a href="tel:+79000000000" class="header-phone">Позвонить</a>
+    <button class="burger" id="burgerBtn" aria-label="Меню">&#9776;</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Услуги</a>
+    <a href="#prices">Цены</a>
+    <a href="#reviews">Отзывы</a>
+    <a href="#contacts">Контакты</a>
+    <a href="tel:+79000000000" class="header-phone">Позвонить</a>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Электромонтажные работы любой сложности в Волгограде</h1>
+    <p>Частный мастер с опытом 12 лет. Гарантия на все работы. Выезд в день обращения.</p>
+    <div class="hero-buttons">
+      <a href="tel:+79000000000" class="btn btn-accent">Вызвать мастера</a>
+      <a href="#services" class="btn btn-outline">Смотреть услуги</a>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <h2 class="section-title">Услуги</h2>
+    <p class="section-subtitle">Полный спектр электромонтажных работ для дома и офиса</p>
+    <div class="container">
+      <div class="services-grid">
+        <div class="service-card">
+          <span class="service-icon">&#9889;</span>
+          <h3>Монтаж электропроводки</h3>
+          <p>Прокладка новой или замена старой проводки. Скрытый и открытый монтаж.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">&#128268;</span>
+          <h3>Установка розеток и выключателей</h3>
+          <p>Монтаж розеток, выключателей, рамок. Подключение силовых розеток.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">&#128736;</span>
+          <h3>Сборка и установка электрощита</h3>
+          <p>Сборка щитов учёта и распределения. Подбор автоматов и УЗО.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">&#128295;</span>
+          <h3>Подключение электроплиты и техники</h3>
+          <p>Подключение варочных панелей, духовых шкафов, посудомоечных машин.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">&#128161;</span>
+          <h3>Монтаж освещения и люстр</h3>
+          <p>Установка люстр, бра, точечных светильников. Подсветка натяжных потолков.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-icon">&#128680;</span>
+          <h3>Аварийный вызов электрика</h3>
+          <p>Срочный выезд при отключении электричества, искрении, запахе гари.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICES -->
+  <section id="prices">
+    <h2 class="section-title">Цены</h2>
+    <p class="section-subtitle">Прозрачная стоимость без скрытых наценок</p>
+    <div class="container">
+      <div class="prices-table">
+        <table>
+          <thead>
+            <tr><th>Услуга</th><th>Стоимость</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Замена розетки</td><td>от 300 &#8381;</td></tr>
+            <tr><td>Монтаж проводки (точка)</td><td>от 250 &#8381;</td></tr>
+            <tr><td>Установка люстры</td><td>от 400 &#8381;</td></tr>
+            <tr><td>Сборка электрощита</td><td>от 1500 &#8381;</td></tr>
+            <tr><td>Диагностика электрики</td><td>от 500 &#8381;</td></tr>
+            <tr><td>Аварийный выезд</td><td>от 1000 &#8381;</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="prices-note">Точная стоимость определяется после осмотра объекта</p>
+    </div>
+  </section>
+
+  <!-- WHY ME -->
+  <section id="why">
+    <h2 class="section-title">Почему выбирают меня</h2>
+    <p class="section-subtitle">Работаю на совесть — клиенты возвращаются и рекомендуют</p>
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-card">
+          <span class="why-icon">&#128202;</span>
+          <h3>Опыт 12 лет</h3>
+          <p>Сотни завершённых объектов</p>
+        </div>
+        <div class="why-card">
+          <span class="why-icon">&#9989;</span>
+          <h3>Гарантия до 2 лет</h3>
+          <p>На все виды выполненных работ</p>
+        </div>
+        <div class="why-card">
+          <span class="why-icon">&#128196;</span>
+          <h3>Чек и договор</h3>
+          <p>Официальное оформление работ</p>
+        </div>
+        <div class="why-card">
+          <span class="why-icon">&#128222;</span>
+          <h3>Бесплатная консультация</h3>
+          <p>Подбор материалов и схемы</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REVIEWS -->
+  <section id="reviews">
+    <h2 class="section-title">Отзывы</h2>
+    <p class="section-subtitle">Что говорят клиенты</p>
+    <div class="container">
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>Вызывали Александра для замены проводки в квартире. Приехал быстро, всё сделал аккуратно, штробы потом зашпаклевал. Работой довольны на все сто!</p>
+          <div class="review-author">Игорь, Дзержинский район</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>Собрал электрощит в частном доме, всё разложил по группам, подписал автоматы. Подробно объяснил, что и как. Профессионал своего дела.</p>
+          <div class="review-author">Светлана, р-н Тракторного завода</div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <p>Срочно нужен был электрик — выгорела розетка на кухне. Приехал в течение часа, заменил, проверил всю линию. Спасибо за оперативность!</p>
+          <div class="review-author">Дмитрий, Центральный район</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- CONTACTS / FOOTER -->
+<footer id="contacts">
+  <div class="footer-grid">
+    <div class="footer-info">
+      <h3>Контакты</h3>
+      <ul>
+        <li><span class="icon">&#128222;</span> <a href="tel:+79000000000">+7 (900) 000-00-00</a></li>
+        <li><span class="icon">&#9993;</span> <a href="mailto:info@elektrik-vlg.ru">info@elektrik-vlg.ru</a></li>
+        <li><span class="icon">&#128205;</span> Волгоград, выезд по всей области</li>
+        <li><span class="icon">&#128337;</span> Ежедневно, 8:00–21:00, без выходных</li>
+      </ul>
+      <div class="social-row">
+        <a href="#" title="WhatsApp">&#128172;</a>
+        <a href="#" title="Telegram">&#9993;</a>
+        <a href="#" title="VK">&#128101;</a>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3>Оставить заявку</h3>
+      <form id="callbackForm">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="tel" name="phone" placeholder="Телефон" required>
+        <textarea name="message" rows="3" placeholder="Краткое сообщение"></textarea>
+        <button type="submit">Отправить заявку</button>
+      </form>
+      <div class="form-success" id="formSuccess">
+        Спасибо! Я свяжусь с вами в течение 30 минут
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Александр Петров — Электромонтаж Волгоград. Все права защищены.
+  </div>
+</footer>
+
+<script>
+// Mobile menu
+const burgerBtn = document.getElementById('burgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+burgerBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
+});
+mobileMenu.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+// IntersectionObserver — animation on scroll
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.service-card, .review-card').forEach(el => observer.observe(el));
+
+// Form submission
+const form = document.getElementById('callbackForm');
+const successMsg = document.getElementById('formSuccess');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  form.style.display = 'none';
+  successMsg.classList.add('show');
+});
+</script>
+
+</body>
+</html>
